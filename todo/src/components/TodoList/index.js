@@ -4,7 +4,9 @@ class TodoList extends Component {
   render() {
     return (
       <ul className="list">
-        {this.props.todos.map(todo => <TodoItem todo={todo} />)}
+        {this.props.todos.map(todo => (
+          <TodoItem todo={todo} removeTodo={this.props.removeTodo} />
+        ))}
       </ul>
     );
   }
@@ -18,7 +20,12 @@ class TodoItem extends Component {
   handleRemoveItem = todoId => {
     fetch(`/api/todos/${this.props.todo._id}`, {
       method: "DELETE"
-    });
+    })
+      .then(response => response.json())
+      .then(json => {
+        console.log(todoId);
+        this.props.removeTodo(this.props.todo._id);
+      });
   };
 
   toggleDone = event => {

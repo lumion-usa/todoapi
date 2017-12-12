@@ -26,6 +26,7 @@ class FormSection extends Component {
       .then(response => response.json())
       .then(json => {
         this.setState({ inputValue: "" });
+        this.props.addTodo(json);
         console.log("Successfully submitted ", json);
       })
       .catch(err => console.log(err));

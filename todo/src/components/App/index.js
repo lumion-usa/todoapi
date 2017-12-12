@@ -13,6 +13,20 @@ class App extends Component {
       .then(json => this.setState({ todos: json }));
   }
 
+  addTodo = todo => {
+    this.setState({
+      todos: [...this.state.todos, todo]
+    });
+  };
+
+  removeTodo = todoId => {
+    this.setState({
+      todos: this.state.todos.filter(todo => {
+        return todo._id !== todoId;
+      })
+    });
+  };
+
   render() {
     return (
       <div className="App">
@@ -23,8 +37,8 @@ class App extends Component {
           <h2>A simple todo list app built with node</h2>
         </header>
 
-        <FormSection />
-        <TodoList todos={this.state.todos} />
+        <FormSection addTodo={this.addTodo} />
+        <TodoList todos={this.state.todos} removeTodo={this.removeTodo} />
       </div>
     );
   }
